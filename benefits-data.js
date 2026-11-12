@@ -1,6 +1,6 @@
 // Independent, versioned benefits catalogue. Never used by the scoring engine.
 // Amount arrays are ordered Pflegegrad 1, 2, 3, 4, 5. null = no separate entitlement.
-export const BENEFIT_RULESET={id:'de-sgbxi-benefits-2026-11-12-v1',checkedAt:'2026-11-12',status:'current',label:'Geltendes Recht · geprüft am 12.11.2026',reformStatus:'draft',reformCheckedAt:'2026-11-12'};
+export const BENEFIT_RULESET={id:'de-sgbxi-benefits-2026-11-12-v2',checkedAt:'2026-11-12',status:'current',label:'Geltendes Recht · geprüft am 12.11.2026',reformStatus:'draft',reformCheckedAt:'2026-11-12'};
 const law=(section,title)=>({title:`§ ${section} SGB XI – ${title}`,url:`https://www.gesetze-im-internet.de/sgb_11/__${section}.html`,checkedAt:BENEFIT_RULESET.checkedAt});
 export const BENEFIT_SOURCES={
   private:law('23','Private Pflegepflichtversicherung'),
@@ -66,3 +66,26 @@ export const OTHER_SUPPORT=[
 ];
 
 export const RESIDENTIAL_SURCHARGES={sourceIds:['surcharge'],bands:[{afterMonths:0,share:.15},{afterMonths:12,share:.3},{afterMonths:24,share:.5},{afterMonths:36,share:.75}]};
+
+// Status matrix for care at home, after recognition and general insurance conditions.
+// A conditional status describes a specific need; it is not an automatic payment.
+export const BENEFIT_STATUS={available:{symbol:'✓',label:'Grundsätzlich verfügbar'},unavailable:{symbol:'–',label:'Kein eigener Anspruch'},conditional:{symbol:'i',label:'Unter bestimmten Voraussetzungen'}};
+export const BENEFIT_CATEGORIES=[
+  {id:'relief',label:'Entlastungsbetrag',icon:'chat',statuses:['available','available','available','available','available'],sources:['relief']},
+  {id:'cash',label:'Pflegegeld',icon:'wallet',statuses:['unavailable','available','available','available','available'],sources:['cash']},
+  {id:'services',label:'Pflegesachleistungen',icon:'heart',statuses:['unavailable','available','available','available','available'],sources:['services']},
+  {id:'replacement',label:'Verhinderungspflege',icon:'user',statuses:['unavailable','conditional','conditional','conditional','conditional'],budgetGroup:'annual',sources:['replacement','annual']},
+  {id:'shortTerm',label:'Kurzzeitpflege',icon:'calendar',statuses:['conditional','conditional','conditional','conditional','conditional'],budgetGroup:'annual',grade1Note:'Nur über den Entlastungsbetrag; kein eigener Anspruch auf Kurzzeitpflege.',sources:['shortTerm','annual','relief']},
+  {id:'aids',label:'Pflegehilfsmittel',icon:'shield',statuses:['conditional','conditional','conditional','conditional','conditional'],sources:['aids']},
+  {id:'home',label:'Wohnraumanpassung',icon:'home',statuses:['conditional','conditional','conditional','conditional','conditional'],sources:['aids']}
+];
+export const BENEFIT_SUMMARIES={
+  relief:'Für anerkannte Alltagshilfe. Geeignete Kosten werden gegen Belege erstattet.',
+  cash:'Für selbst organisierte Pflege zu Hause, etwa durch Angehörige. Auszahlung an die pflegebedürftige Person.',
+  services:'Für einen zugelassenen Pflegedienst zu Hause. Mit Pflegegeld anteilig kombinierbar.',
+  annual:'Ersatzpflege bei Ausfall der Pflegeperson oder vorübergehende stationäre Pflege. Beide teilen sich diesen Jahresbetrag.',
+  aids:'Für benötigte Verbrauchsprodukte, etwa Einmalhandschuhe. Technische Hilfsmittel werden gesondert geprüft.',
+  home:'Etwa für einen Treppenlift oder Badumbau, wenn die Pflege erleichtert oder Selbstständigkeit wiederhergestellt wird.',
+  day:'Betreuung und Pflege in einer Einrichtung – ergänzend zur Pflege zu Hause.',
+  residential:'Für die Pflegekosten im Heim. Unterkunft und Verpflegung bezahlen Sie grundsätzlich selbst.'
+};
