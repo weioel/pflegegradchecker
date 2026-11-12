@@ -50,7 +50,7 @@ function makeCMap() {
 
 class Report {
   constructor(date){this.pages=[];this.date=date;this.newPage();}
-  newPage(){this.page={commands:[],links:[]};this.pages.push(this.page);this.y=78;this.text('caro / Pflegekompass',M,31,10,true);this.text('PERSÖNLICHE SELBSTEINSCHÄTZUNG',M,48,7,false,GRAY);this.rule(61);}
+  newPage(){this.page={commands:[],links:[]};this.pages.push(this.page);this.y=78;this.text('caro / Pflegegradchecker',M,31,10,true);this.text('PERSÖNLICHE SELBSTEINSCHÄTZUNG',M,48,7,false,GRAY);this.rule(61);}
   ensure(height){if(this.y+height>BOTTOM)this.newPage();}
   text(text,x,y,size=10,bold=false,color=BLACK){this.page.commands.push(`BT /${bold?'F2':'F1'} ${size} Tf ${color} rg 1 0 0 1 ${fixed(x)} ${fixed(H-y-size)} Tm <${hex(text)}> Tj ET`);}
   rule(y=this.y){this.page.commands.push(`0.88 0.88 0.88 RG 0.5 w ${M} ${fixed(H-y)} m ${fixed(W-M)} ${fixed(H-y)} l S`);}
@@ -103,7 +103,7 @@ function writePDF(pages,date) {
   objects[rootPages]=`<< /Type /Pages /Count ${kids.length} /Kids [${kids.map(n=>`${n} 0 R`).join(' ')}] >>`;
   objects[catalog]=`<< /Type /Catalog /Pages ${rootPages} 0 R /Lang (de-DE) >>`;
   const timestamp=date.toISOString().replace(/[-:T]/g,'').slice(0,14);
-  const info=add(`<< /Title <${utf16('Pflegegrad-Selbsteinschätzung')}> /Author (Caro Pflegekompass) /Subject <${utf16('Unverbindliches Ergebnis, Modulwerte und vollständige Antworten')}> /Creator (Caro Pflegekompass - lokale PDF-Erstellung) /CreationDate (D:${timestamp}Z) >>`);
+  const info=add(`<< /Title <${utf16('Pflegegrad-Selbsteinschätzung')}> /Author (Caro Pflegegradchecker) /Subject <${utf16('Unverbindliches Ergebnis, Modulwerte und vollständige Antworten')}> /Creator (Caro Pflegegradchecker - lokale PDF-Erstellung) /CreationDate (D:${timestamp}Z) >>`);
   let pdf='%PDF-1.7\n% Caro local report\n';
   const offsets=[0];
   for(let i=1;i<objects.length;i++){offsets.push(pdf.length);pdf+=`${i} 0 obj\n${objects[i]}\nendobj\n`;}
