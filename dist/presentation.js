@@ -17,7 +17,7 @@ export function presentContent(route,markup){
       section.querySelector(':scope > .eyebrow')?.remove();section.querySelector(':scope > h2')?.remove();
       if(i===1){application=section.querySelector('details');application?.remove();}
       const titles={1:'Pflegekasse kontaktieren',2:'Begutachtung vorbereiten',3:'Bescheid erhalten'};
-      const summaries={1:'Bei Ihrer Krankenkasse oder privaten Pflegeversicherung beantragen.',2:'Medizinischer Dienst oder Medicproof prüft den Hilfebedarf.',3:'Die Pflegeversicherung entscheidet. Prüfen Sie das Gutachten.'};
+      const summaries={1:'Bei Ihrer Krankenkasse oder privaten Pflegeversicherung beantragen.',2:'Medizinischer Dienst oder Medicproof prüft den Hilfebedarf.'};
       details.innerHTML=`<summary>${i>0&&i<4?`<span class="step-index">${i}</span>`:''}<span class="step-summary"><strong>${titles[i]||data.title}</strong>${summaries[i]?`<span>${summaries[i]}</span>`:''}</span></summary><div class="guide-body prose">${section.innerHTML}</div>`;
       mapped.push(details);
     }
