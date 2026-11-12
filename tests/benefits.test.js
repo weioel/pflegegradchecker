@@ -36,7 +36,7 @@ test('Five price-free grade cards expose seven labelled statuses and one shared 
   const cards=[...doc.querySelectorAll('.benefit-grade-card')];assert.equal(cards.length,5);
   for(const card of cards){assert.ok(!card.textContent.includes('€'));assert.equal(card.querySelectorAll('[data-category]').length,7);assert.equal(card.querySelectorAll('.benefit-status .sr-only').length,7);}
   const first=cards[0];for(const id of ['cash','services','replacement'])assert.equal(first.querySelector(`[data-category="${id}"]`).dataset.status,'unavailable');
-  assert.equal(first.querySelector('[data-category="shortTerm"]').dataset.status,'conditional');assert.match(first.querySelector('[data-category="shortTerm"]').textContent,/Nur über den Entlastungsbetrag/);
+  assert.equal(first.querySelector('[data-category="shortTerm"]').dataset.status,'unavailable');assert.match(first.querySelector('[data-category="shortTerm"]').textContent,/Nur über den Entlastungsbetrag/);
   for(const c of BENEFIT_CATEGORIES){assert.equal(c.statuses.length,5);for(const id of c.sources)assert.ok(BENEFIT_SOURCES[id]);}
   assert.equal(BENEFIT_CATEGORIES.find(c=>c.id==='replacement').budgetGroup,BENEFIT_CATEGORIES.find(c=>c.id==='shortTerm').budgetGroup);
   assert.match(doc.querySelector('.shared-budget-hint').textContent,/teilen sich ein Jahresbudget/);
