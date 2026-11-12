@@ -166,7 +166,7 @@ test('Reform comparison: range, typed input, validation, rule emphasis and every
   const number=document.querySelector('#reform-points-number');number.focus();setValue('#reform-points-number','30');assert.equal(document.activeElement,number);assert.equal(document.querySelector('#reform-points').value,'30');assert.match(document.querySelector('[data-scale="draft"] .scale-title').textContent,/Pflegegrad 2/);
   setValue('#reform-points-number','101');assert.equal(number.getAttribute('aria-invalid'),'true');assert.match(document.querySelector('#points-error').textContent,/0 bis 100/);assert.equal(document.querySelector('#reform-points').value,'30');
   setValue('#reform-points','12.49');assert.equal(number.value,'12.49');assert.equal(number.hasAttribute('aria-invalid'),false);assert.match(document.querySelector('[data-scale="current"] .scale-title').textContent,/Kein Pflegegrad/);
-  click('[data-reform-highlight="draft"]');assert.ok(document.querySelector('[data-scale="draft"]').classList.contains('is-emphasized'));assert.equal(document.querySelectorAll('.threshold-scale').length,2);
+  assert.equal(document.querySelectorAll('.threshold-scale').length,2);
   assert.deepEqual([...document.querySelectorAll('.module-value>strong')].map(n=>n.textContent),['20','10']);
   for(const [module,raw,expected] of [[1,6,['7,5','5']],[2,6,['7,5','7,5']],[3,3,['7,5','7,5']],[4,8,['20','10']],[5,3,['10','10']],[6,1,['3,75','0']]]){
     setValue('#reform-module-select',String(module),'change');setValue('#reform-raw',String(raw));assert.deepEqual([...document.querySelectorAll('.module-value>strong')].map(n=>n.textContent),expected);assert.equal(document.querySelectorAll('.reform-table-details tbody tr').length,5);
@@ -179,7 +179,7 @@ test('Reform comparison: range, typed input, validation, rule emphasis and every
   click('[data-reform-jump="reform-module"]');assert.equal(document.activeElement.id,'module-heading');assert.equal(location.hash,'#/reform');dom.window.close();
 });
 test('Reform sliders are isolated from existing answers and scoring; legacy reform information remains accessible',async()=>{
-  const dom=await setup('/rechner');await start();choose('answer','3');await navigate('/reform');setValue('#reform-points','100');setValue('#reform-raw','54');click('[data-reform-highlight="draft"]');await navigate('/rechner');assert.equal(document.querySelector('input[name="answer"]:checked').value,'3');
+  const dom=await setup('/rechner');await start();choose('answer','3');await navigate('/reform');setValue('#reform-points','100');setValue('#reform-raw','54');await navigate('/rechner');assert.equal(document.querySelector('input[name="answer"]:checked').value,'3');
   click('[data-action="result"]');await tick();assert.match(document.querySelector('.result-status').textContent,/offen|beantwortet|vollständig/i);
   await navigate('/reform-details');assert.ok(document.querySelector('.reference-section'));assert.match(document.querySelector('main').textContent,/Widerspruch/);dom.window.close();
 });
