@@ -14,7 +14,7 @@ function statusList(grade){
 function gradeCards(grade){
   return `<div class="benefit-grade-selector" role="group" aria-label="Pflegegrad auswählen – Leistungen zu Hause">${GRADES.map(g=>`<article class="benefit-grade-card grade-tone-${g.grade}"><button data-benefit-grade="${g.grade}" aria-label="Pflegegrad ${g.grade} auswählen: ${g.short}" aria-pressed="${g.grade===grade}" aria-controls="benefit-content"><span class="grade-choice-top">Pflegegrad <strong>${g.grade}</strong></span><span class="grade-choice-description">${g.short}</span><span class="grade-choice-link">Auswählen ${icon('arrow')}</span></button>${statusList(g.grade)}</article>`).join('')}</div>`;
 }
-const statusLegend=()=>`<div class="benefit-status-legend" aria-label="Bedeutung der Statussymbole">${Object.entries(BENEFIT_STATUS).map(([key,v])=>`<span><span class="benefit-status status-${key}" aria-hidden="true">${v.symbol}</span>${key==='conditional'?'Bei besonderem Bedarf':v.label}</span>`).join('')}</div>`;
+const statusLegend=()=>`<div class="benefit-status-legend" aria-label="Bedeutung der Statussymbole">${Object.entries(BENEFIT_STATUS).map(([key,v])=>`<span><span class="benefit-status status-${key}" aria-hidden="true">${v.symbol}</span>${v.label}</span>`).join('')}</div>`;
 function benefitCard(b,grade){
   const amount=benefitAmount(b.id,grade),unavailable=amount===null;
   const notAvailable=b.id==='annual'?'Kein eigenes Jahresbudget':'Kein eigener Anspruch';

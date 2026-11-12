@@ -68,16 +68,16 @@ export const OTHER_SUPPORT=[
 export const RESIDENTIAL_SURCHARGES={sourceIds:['surcharge'],bands:[{afterMonths:0,share:.15},{afterMonths:12,share:.3},{afterMonths:24,share:.5},{afterMonths:36,share:.75}]};
 
 // Status matrix for care at home, after recognition and general insurance conditions.
-// A conditional status describes a specific need; it is not an automatic payment.
-export const BENEFIT_STATUS={available:{symbol:'✓',label:'Grundsätzlich verfügbar'},unavailable:{symbol:'–',label:'Kein eigener Anspruch'},conditional:{symbol:'i',label:'Unter bestimmten Voraussetzungen'}};
+// A checkmark indicates a possible benefit; the detailed eligibility conditions still apply.
+export const BENEFIT_STATUS={available:{symbol:'✓',label:'Grundsätzlich verfügbar'},unavailable:{symbol:'–',label:'Kein eigener Anspruch'}};
 export const BENEFIT_CATEGORIES=[
   {id:'relief',label:'Entlastungsbetrag',icon:'chat',statuses:['available','available','available','available','available'],sources:['relief']},
   {id:'cash',label:'Pflegegeld',icon:'wallet',statuses:['unavailable','available','available','available','available'],sources:['cash']},
   {id:'services',label:'Pflegesachleistungen',icon:'heart',statuses:['unavailable','available','available','available','available'],sources:['services']},
-  {id:'replacement',label:'Verhinderungspflege',icon:'user',statuses:['unavailable','conditional','conditional','conditional','conditional'],budgetGroup:'annual',sources:['replacement','annual']},
-  {id:'shortTerm',label:'Kurzzeitpflege',icon:'calendar',statuses:['conditional','conditional','conditional','conditional','conditional'],budgetGroup:'annual',grade1Note:'Nur über den Entlastungsbetrag; kein eigener Anspruch auf Kurzzeitpflege.',sources:['shortTerm','annual','relief']},
-  {id:'aids',label:'Pflegehilfsmittel',icon:'shield',statuses:['conditional','conditional','conditional','conditional','conditional'],sources:['aids']},
-  {id:'home',label:'Wohnraumanpassung',icon:'home',statuses:['conditional','conditional','conditional','conditional','conditional'],sources:['aids']}
+  {id:'replacement',label:'Verhinderungspflege',icon:'user',statuses:['unavailable','available','available','available','available'],budgetGroup:'annual',sources:['replacement','annual']},
+  {id:'shortTerm',label:'Kurzzeitpflege',icon:'calendar',statuses:['unavailable','available','available','available','available'],budgetGroup:'annual',grade1Note:'Nur über den Entlastungsbetrag; kein eigener Anspruch auf Kurzzeitpflege.',sources:['shortTerm','annual','relief']},
+  {id:'aids',label:'Pflegehilfsmittel',icon:'shield',statuses:['available','available','available','available','available'],sources:['aids']},
+  {id:'home',label:'Wohnraumanpassung',icon:'home',statuses:['available','available','available','available','available'],sources:['aids']}
 ];
 export const BENEFIT_SUMMARIES={
   relief:'Für anerkannte Alltagshilfe. Geeignete Kosten werden gegen Belege erstattet.',
