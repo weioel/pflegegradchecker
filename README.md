@@ -20,7 +20,7 @@ npm test
 npm run check
 ```
 
-73 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
+95 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
 
 ## Struktur
 
@@ -29,6 +29,7 @@ npm run check
 - `dist/app.js`: Navigation und Fragenablauf; Antworten nur im Arbeitsspeicher
 - `dist/results.js`: Pflegegrad, passende Leistungen und aufklappbarer Rechenweg
 - `dist/benefits-data.js`, `dist/benefits.js`: versionierte aktuelle Leistungen, Quellen und interaktive Pflegegrad-/Pflegeortauswahl
+- `dist/reform-data.js`, `dist/reform.js`: isolierter Vergleich geltender Regeln und PNOG-Entwurf; Punkte- und Modulregler, Gewichtungsdiagramm
 - `dist/question-copy.js`: verständliche Anzeigeformulierungen ohne Änderung der Bewertung
 - `dist/pdf.js`: echter lokaler PDF-Download, inklusive aller Antworten und Quellen
 - `dist/home.js`, `dist/content.js`: Startseite und vollständige redaktionelle Inhalte
@@ -42,7 +43,7 @@ npm run check
 
 ## Rechtlicher Stand
 
-Recherche: 11. November 2026. Es gelten die Tabellen aus Anlage 1/2 zu § 15 SGB XI und die Begutachtungs-Richtlinien vom 26.08.2026, gültig seit 01.10.2026. Der PNOG-Entwurf vom 02.11.2026 ist im eigenen Informationsbereich vom geltenden Recht getrennt und wird nicht im Rechner verwendet.
+Recherche zuletzt geprüft: 12. November 2026. Es gelten die Tabellen aus Anlage 1/2 zu § 15 SGB XI und die Begutachtungs-Richtlinien vom 26.08.2026, gültig seit 01.10.2026. Der PNOG-Entwurf vom 02.11.2026 ist im eigenen Informationsbereich vom geltenden Recht getrennt und wird nicht im Rechner verwendet.
 
 Für Aktualisierungen zuerst die amtlichen Originalquellen prüfen, dann den Regelsatz versionieren, Quellen/Dokumentation und Erwartungen in den unabhängigen Tests anpassen. Keine Reformwerte ohne gesicherte Rechtsgrundlage übernehmen.
 
@@ -61,3 +62,10 @@ Drei Aufgaben auf der Startseite, dezente Pastellfarben, drei praktische Antrags
 Die neue Leistungsübersicht erklärt alle fünf Pflegegrade mit getrennten Ansichten für Pflege zu Hause und im Heim. Beträge, Zeiträume und Geld-/Sach-/Erstattungsleistungen sind getrennt ausgewiesen. Aktuelle Werte wurden am 12.11.2026 gegen SGB XI und BMG geprüft; PNOG-Entwurfswerte sind nicht aktiv. Bewertungsdaten, Algorithmus und PDF-Export bleiben byteidentisch.
 
 Browserzugriff war nicht verfügbar. Automatisierte Funktions- und Strukturprüfungen sind abgeschlossen; eine echte mobile Sichtprüfung bleibt offen.
+
+
+## Reformvergleich und Leistungsstatus, 12.11.2026
+
+Vier Hauptkacheln mit direktem Zugang zu `#/reform`. Zwei getrennte Vergleichswerkzeuge zeigen Gesamtgrenzen und die Einzelpunktumrechnung aller sechs Module. Das Gewichtungsdiagramm bildet fünf Anteile mit zusammen 100 % und sechs auswählbare Module ab; 2/3 werden gemeinsam gezählt. Der Entwurf wird durchgehend gekennzeichnet. Vollständige bisherige Reforminformationen bleiben unter `#/reform-details` erreichbar.
+
+Die fünf Pflegegrad-Kacheln zeigen sieben Leistungsarten ohne Eurobeträge. Auf Mobilgeräten folgt auf die kompakte Auswahl eine Matrix für den gewählten Grad. Sechs große Leistungskacheln zeigen Beträge oder ausdrücklich fehlende eigene Ansprüche. Pflegeortwechsel, Tages-/Nachtpflege, Beratung, Ergebnisverknüpfung und PDF bleiben erhalten. Recherche: `docs/reform-comparison.md`.

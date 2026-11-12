@@ -35,3 +35,13 @@ Für öffentlichen Betrieb fehlen noch Betreiber- und verbindliche Hostingangabe
 - Kein neuer Laufzeitdienst, keine externe Schrift, kein Analytics, keine zusätzliche Speicherung. Auswahlgrade nur im Arbeitsspeicher.
 - Aktuelle Leistungsquellen und Reformtrennung: `docs/benefits-research.md`.
 - Erneuter Browserinventar-Aufruf meldet „The browser access host is unavailable“. Deshalb sind echte Browserdarstellung, mobile Layouts, Zoom und Farbkontraste nicht im Browser verifiziert. axe in JSDOM prüft strukturelle WCAG-Regeln, keine Layout-/Kontrastberechnung.
+
+## Reformvergleich und Leistungsstatus, 12.11.2026
+
+- 95 automatisierte Tests erfolgreich: 18 zusätzliche Vergleichstests (alle gültigen Rohpunkte beider Tabellenstände und deren Grenzen, beide Pflegegradgrenzen mit Nachbarwerten, unveränderte Module, 100-%-Gewichtung, Validierung und Provenienz); drei weitere UI-Tests und ein Leistungsstatus-Test.
+- Regler, Zahleneingabe, Fehlerzustände, Modulwechsel, Fokus, Gewichtungsauswahl, Sprungnavigation und Isolation vom beantworteten Selbstcheck geprüft. Beide Vergleichsregler haben eine beschriftete Zahleneingabe als Alternative.
+- Fünf Pflegegradkarten ohne Eurobeträge, sieben verständlich benannte Statuszeilen, PG1-Ausschlüsse und gemeinsame Finanzierung geprüft. Sechs Hauptleistungskarten mit getrennten Auszahlungs-/Erstattungsformen bleiben vorhanden; kein Anspruch wird durch eine Null-Euro-Kachel vorgetäuscht.
+- Strukturprüfung mit axe um den Reformbereich und den gemeinsamen Modul-2/3-Anteil erweitert: keine gefundenen Verstöße. Dynamische Ergebnisänderungen werden über die bestehende Live-Region angekündigt.
+- Rechnerdaten, Algorithmus und PDF per SHA-256 unverändert. Alle bestehenden 64-Fragen-/PDF- und Guide-Tests weiterhin erfolgreich.
+- Browserinventar und Öffnen der Vorschau scheiterten erneut mit „The browser access host is unavailable“. Native Chrome-Steuerung wurde nicht erneut umgangen. Daher keine behauptete mobile Sichtprüfung, Layout-/Zoom- oder Browser-Kontrastabnahme. Responsive Regeln bis 320 px, Tastaturbedienung und reduzierte Bewegung sind implementiert, aber visuell noch nicht im echten Browser bestätigt.
+- Footer enthält nur notwendige Navigationslinks. Betreiber-/Datenschutzhinweise bleiben in den jeweiligen Seiten; Zugriff bleibt owner-private.

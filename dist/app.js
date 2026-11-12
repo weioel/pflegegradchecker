@@ -3,6 +3,8 @@ import { calculate, isAnswered } from './calculator.js';
 import { guidePage, faqPage, sourcesPage, reformPage, privacyPage, imprintPage } from './content.js';
 import { homePage } from './home.js';
 import { benefitsPage, benefitsContent } from './benefits.js';
+import { newReformState } from './reform-data.js';
+import { reformComparisonPage, handleReformInput, handleReformChange, handleReformClick } from './reform.js';
 import { questionLabel, optionLabel } from './question-copy.js';
 import { presentContent } from './presentation.js';
 import { icon } from './ui.js';
@@ -10,6 +12,7 @@ import { resultPage } from './results.js';
 
 const main=document.querySelector('main');
 const state={answers:{},started:false,step:0,adult:null,duration:null,transition:null,benefitGrade:2,careSetting:'home'};
+const reformState=newReformState();
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const moduleNames=['Mobilität','Verstehen & Sprechen','Verhalten & Psyche','Selbstversorgung','Krankheit & Therapie','Alltag & Kontakte'];
 let route='';
@@ -74,19 +77,20 @@ function render({focus=true}={}){
     case '/ratgeber':content=guidePage();title='Pflegegrad beantragen';break;
     case '/faq':content=faqPage();title='Fragen & Antworten';break;
     case '/quellen':content=sourcesPage();title='Quellen & Methodik';break;
-    case '/reform':content=reformPage();title='Pflegereform 2027';break;
+    case '/reform':content=reformComparisonPage(reformState);title='Pflegereform 2027 – interaktiver Vergleich';break;
+    case '/reform-details':content='<a class="text-link" href="#/reform">← Zum interaktiven Vergleich</a>'+reformPage();title='Pflegereform 2027 – Hintergründe';break;
     case '/datenschutz':content=privacyPage();title='Datenschutz';break;
     case '/impressum':content=imprintPage();title='Impressum';break;
     default:content=homePage();title='Pflege verstehen. Klarheit gewinnen.';
   }
-  main.innerHTML=['/ratgeber','/faq','/quellen','/reform','/datenschutz','/impressum'].includes(route)?'<div class="page route-enter">'+presentContent(route,content)+'</div>':content;document.title=`${title} · Pflegekompass von Caro`;
+  main.innerHTML=['/ratgeber','/faq','/quellen','/reform-details','/datenschutz','/impressum'].includes(route)?'<div class="page route-enter">'+presentContent(route==='/reform-details'?'/reform':route,content)+'</div>':content;document.title=`${title} · Pflegekompass von Caro`;
   updateNavigation();
   revealObserver?.disconnect();
   if(window.IntersectionObserver&&!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){revealObserver=new window.IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.08});document.querySelectorAll('.home-bento>.bento,.knowledge-grid>.bento,.application-path').forEach(el=>{el.classList.add('reveal-on-scroll');revealObserver.observe(el);});}
   if(focus){window.scrollTo({top:0,behavior:'instant'});(document.querySelector('#question-title')||main).focus({preventScroll:true});}
 }
 function updateNavigation(){
-  document.querySelectorAll('#main-nav a').forEach(a=>{if(a.hash===`#${route}`||(route==='/ergebnis'&&a.hash==='#/rechner'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  document.querySelectorAll('#main-nav a').forEach(a=>{if(a.hash===`#${route}`||(route==='/reform-details'&&a.hash==='#/reform')||(route==='/ergebnis'&&a.hash==='#/rechner'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   const cta=document.querySelector('.nav-cta');cta.innerHTML=`${state.started?'Selbstcheck fortsetzen':'Zum Selbstcheck'} ${icon('arrow')}`;
   document.querySelector('#main-nav').classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false');document.querySelector('.menu-toggle').setAttribute('aria-label','Navigation öffnen');
 }
@@ -122,7 +126,9 @@ document.addEventListener('submit',event=>{
   }
   if(event.target.id==='question-form'){event.preventDefault();if(!readQuestion({requireAnswer:true}))return;if(state.step===QUESTIONS.length-1)location.hash='/ergebnis';else {const old=QUESTIONS[state.step].module,next=QUESTIONS[state.step+1].module;const count=MODULES[old-1].questions.filter(q=>isAnswered(q.id,state.answers[q.id])).length;goQuestion(state.step+1,old!==next?`${moduleNames[old-1]}: ${count} von ${MODULES[old-1].questions.length} geklärt. Weiter mit Modul ${next}.`:null);}}
 });
+document.addEventListener('input',event=>handleReformInput(event,reformState));
 document.addEventListener('change',event=>{
+  if(handleReformChange(event,reformState))return;
   if(event.target.name==='adult'){state.adult=event.target.value==='yes';document.querySelector('#child-warning').hidden=state.adult;document.querySelector('#start-button').disabled=!state.adult;document.querySelector('#intro-error').textContent='';}
   if(event.target.name==='duration')state.duration=event.target.value;
   if(event.target.closest('#question-form')){
@@ -134,6 +140,7 @@ document.addEventListener('change',event=>{
   }
 });
 document.addEventListener('click',async event=>{
+  if(handleReformClick(event,reformState))return;
   if(event.target.closest('a[href="#main"]')){event.preventDefault();main.focus();main.scrollIntoView();return;}
   const helpButton=event.target.closest('[data-help-toggle]');if(helpButton){const panel=document.getElementById(helpButton.dataset.helpToggle);panel.hidden=!panel.hidden;panel.dataset.manual=String(!panel.hidden);helpButton.setAttribute('aria-expanded',String(!panel.hidden));return;}
   const benefitLink=event.target.closest('[data-benefits-link]');if(benefitLink){state.benefitGrade=Number(benefitLink.dataset.benefitsLink);state.careSetting='home';}

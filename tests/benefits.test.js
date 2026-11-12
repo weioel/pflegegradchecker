@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
-import { BENEFIT_RULESET,BENEFITS,BENEFIT_SOURCES,COMBINATION_RULES,benefitAmount } from '../dist/benefits-data.js';
+import { BENEFIT_RULESET,BENEFIT_CATEGORIES,BENEFITS,BENEFIT_SOURCES,COMBINATION_RULES,benefitAmount } from '../dist/benefits-data.js';
 import { benefitsPage,benefitsContent,benefitsPreview } from '../dist/benefits.js';
 
 // Independently transcribed official 2026 benefit table; row order PG1–5.
@@ -20,7 +20,7 @@ test('All five benefit pages distinguish care settings, periods, cash and earmar
   for(let grade=1;grade<=5;grade++){
     const dom=new JSDOM(benefitsPage(grade));const doc=dom.window.document;
     assert.equal(doc.querySelectorAll('[data-benefit-grade]').length,5);assert.equal(doc.querySelectorAll('[data-benefit-grade][aria-pressed="true"]').length,1);
-    assert.match(doc.querySelector('.benefit-eligibility').textContent,/keine Gesamtauszahlung/);
+    assert.match(doc.querySelector('.benefit-eligibility').textContent,/keine Gesamtauszahlung/i);
     assert.equal(doc.querySelector('[data-benefit="residential"]'),null);
     if(grade>1){assert.match(doc.querySelector('[data-benefit="annual"] .amount-unit').textContent,/Kalenderjahr/);assert.match(doc.querySelector('.benefit-combinations').textContent,/kein zusätzliches Budget/);assert.match(doc.querySelector('.benefit-combinations').textContent,/50 Prozent/);}
     assert.match(doc.querySelector('[data-benefit="home"] .amount-unit').textContent,/Maßnahme/);assert.match(doc.querySelector('[data-benefit="relief"] .benefit-tag').textContent,/gegen Belege/);
@@ -29,4 +29,17 @@ test('All five benefit pages distinguish care settings, periods, cash and earmar
 });
 test('Result previews only show applicable benefits and an explicit non-entitlement notice',()=>{
   for(let grade=1;grade<=5;grade++){const dom=new JSDOM(benefitsPreview(grade));const doc=dom.window.document;assert.match(doc.querySelector('.benefit-eligibility').textContent,/keinen Leistungsanspruch/);for(const el of doc.querySelectorAll('[data-benefit]'))assert.notEqual(benefitAmount(el.dataset.benefit,grade),null);assert.equal(doc.querySelector('[data-benefits-link]').getAttribute('href'),'#/leistungen');dom.window.close();}
+});
+
+test('Five price-free grade cards expose seven labelled statuses and one shared annual budget',()=>{
+  const dom=new JSDOM(benefitsPage(2)),doc=dom.window.document;
+  const cards=[...doc.querySelectorAll('.benefit-grade-card')];assert.equal(cards.length,5);
+  for(const card of cards){assert.ok(!card.textContent.includes('€'));assert.equal(card.querySelectorAll('[data-category]').length,7);assert.equal(card.querySelectorAll('.benefit-status .sr-only').length,7);}
+  const first=cards[0];for(const id of ['cash','services','replacement'])assert.equal(first.querySelector(`[data-category="${id}"]`).dataset.status,'unavailable');
+  assert.equal(first.querySelector('[data-category="shortTerm"]').dataset.status,'conditional');assert.match(first.querySelector('[data-category="shortTerm"]').textContent,/Nur über den Entlastungsbetrag/);
+  for(const c of BENEFIT_CATEGORIES){assert.equal(c.statuses.length,5);for(const id of c.sources)assert.ok(BENEFIT_SOURCES[id]);}
+  assert.equal(BENEFIT_CATEGORIES.find(c=>c.id==='replacement').budgetGroup,BENEFIT_CATEGORIES.find(c=>c.id==='shortTerm').budgetGroup);
+  assert.match(doc.querySelector('.shared-budget-hint').textContent,/teilen sich ein Jahresbudget/);
+  for(const grade of [1,2,3,4,5]){const page=new JSDOM(benefitsContent(grade));assert.equal(page.window.document.querySelectorAll('.primary-benefits>.benefit-card').length,6);assert.equal(page.window.document.querySelectorAll('.mobile-benefit-matrix [data-category]').length,7);assert.ok(page.window.document.querySelector('.mobile-benefit-matrix').getAttribute('aria-label').includes(`Pflegegrad ${grade}`));page.window.close();}
+  dom.window.close();
 });

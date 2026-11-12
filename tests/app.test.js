@@ -26,7 +26,7 @@ async function navigate(hash){location.hash=hash;await tick();}
 
 test('All content routes render, guide section links preserve guide, skip link preserves route',async()=>{
   const dom=await setup();
-  for(const route of ['/','/ratgeber','/faq','/quellen','/reform','/datenschutz','/impressum','/leistungen','/rechner']){
+  for(const route of ['/','/ratgeber','/faq','/quellen','/reform','/reform-details','/datenschutz','/impressum','/leistungen','/rechner']){
     await navigate(route);assert.ok(document.querySelector('main h1'),route);assert.equal(document.querySelectorAll('main h1').length,1);
     assert.equal(new Set([...document.querySelectorAll('[id]')].map(el=>el.id)).size,document.querySelectorAll('[id]').length,`unique IDs ${route}`);
     click('.skip-link');assert.equal(location.hash,`#${route}`);
@@ -74,7 +74,7 @@ test('Structural accessibility checks on landing, questionnaire, results and gui
     const results=await dom.window.axe.run(dom.window.document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']},rules:{'color-contrast':{enabled:false}}});
     assert.equal(results.violations.length,0,label+': '+JSON.stringify(results.violations.map(x=>({id:x.id,targets:x.nodes.map(n=>n.target)}))));
   };
-  await check('Landing');await navigate('/rechner');await check('Introduction');await start();await check('Question');click('[data-action="result"]');await tick();await check('Incomplete result');await navigate('/ratgeber');await check('Guide');await navigate('/leistungen');await check('Benefits at home');click('[data-care-setting="residential"]');await check('Residential benefits');dom.window.close();
+  await check('Landing');await navigate('/rechner');await check('Introduction');await start();await check('Question');click('[data-action="result"]');await tick();await check('Incomplete result');await navigate('/ratgeber');await check('Guide');await navigate('/leistungen');await check('Benefits at home');click('[data-care-setting="residential"]');await check('Residential benefits');await navigate('/reform');await check('Reform comparison');click('[data-weight-module="2"]');await check('Shared weight detail');dom.window.close();
 });
 
 test('Redesign: care-grade selector and FAQ topics expose all content without changing the calculation',async()=>{
@@ -128,7 +128,7 @@ test('Benefits selection preserves focus and care setting; unavailable grade1 be
     const button=document.querySelector(`[data-benefit-grade="${grade}"]`);button.focus();button.click();
     assert.equal(document.activeElement,button);assert.ok(document.querySelector('[data-benefit="cash"]').textContent.includes(cash));assert.match(document.querySelector('#announcement').textContent,new RegExp(`Pflegegrad ${grade}`));
   }
-  click('[data-benefit-grade="1"]');for(const id of ['cash','services','annual','day'])assert.equal(document.querySelector(`[data-benefit="${id}"]`),null,id);
+  click('[data-benefit-grade="1"]');for(const id of ['cash','services','annual']){const card=document.querySelector(`[data-benefit="${id}"]`);assert.equal(card.dataset.available,'false');assert.equal(card.querySelector('.benefit-amount'),null);assert.match(card.textContent,/Kein eigene[rs] /);}assert.equal(document.querySelector('[data-benefit="day"]'),null);
   assert.match(document.querySelector('[data-benefit="relief"]').textContent,/131 €/);assert.match(document.querySelector('.benefit-context').textContent,/Kein Pflegegeld/);
   click('[data-care-setting="residential"]');assert.equal(document.activeElement.dataset.careSetting,'residential');assert.match(document.querySelector('[data-benefit="residential"]').textContent,/131 €/);assert.equal(document.querySelector('.residential-share'),null);
   click('[data-benefit-grade="5"]');assert.equal(document.querySelector('[data-care-setting="residential"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('[data-benefit="residential"]').textContent,/2\.096 €/);assert.ok(document.querySelector('.residential-share'));
@@ -151,4 +151,35 @@ test('Application template is copied exactly and downloads as a local text file'
   const oldCreate=URL.createObjectURL,oldRevoke=URL.revokeObjectURL;URL.createObjectURL=b=>{blob=b;return 'blob:local-template';};URL.revokeObjectURL=()=>{};
   const oldClick=dom.window.HTMLAnchorElement.prototype.click;dom.window.HTMLAnchorElement.prototype.click=function(){downloads.push({href:this.href,name:this.download});};
   try{click('[data-action="copy-application"]');await tick();assert.equal(copied[0],document.querySelector('#application-template').value);click('[data-action="download-application"]');assert.equal(await blob.text(),copied[0]);assert.deepEqual(downloads,[{href:'blob:local-template',name:'Pflegegrad-Antrag.txt'}]);}finally{URL.createObjectURL=oldCreate;URL.revokeObjectURL=oldRevoke;dom.window.HTMLAnchorElement.prototype.click=oldClick;dom.window.close();}
+});
+
+test('Four homepage tasks and minimal footer retain legal navigation',async()=>{
+  const dom=await setup();assert.deepEqual([...document.querySelectorAll('.task-bento>a')].map(a=>a.getAttribute('href')),['#/rechner','#/ratgeber','#/leistungen','#/reform']);
+  const footer=document.querySelector('footer');for(const text of ['Ein Informationsservice','Private Vorschau','Caro ist weder'])assert.ok(!footer.textContent.includes(text));
+  for(const route of ['/impressum','/datenschutz','/quellen'])assert.ok(footer.querySelector(`a[href="#${route}"]`));
+  await navigate('/impressum');assert.match(document.querySelector('main').textContent,/Caro/);dom.window.close();
+});
+function setValue(selector,value,type='input'){const input=document.querySelector(selector);assert.ok(input);input.value=value;input.dispatchEvent(new window.Event(type,{bubbles:true}));return input;}
+test('Reform comparison: range, typed input, validation, rule emphasis and every module work without losing focus',async()=>{
+  const dom=await setup('/reform');assert.match(document.querySelector('.reform-status').textContent,/noch nicht beschlossen/);
+  assert.match(document.querySelector('[data-scale="current"] .scale-title').textContent,/Pflegegrad 2/);assert.match(document.querySelector('[data-scale="draft"] .scale-title').textContent,/Pflegegrad 1/);
+  const number=document.querySelector('#reform-points-number');number.focus();setValue('#reform-points-number','30');assert.equal(document.activeElement,number);assert.equal(document.querySelector('#reform-points').value,'30');assert.match(document.querySelector('[data-scale="draft"] .scale-title').textContent,/Pflegegrad 2/);
+  setValue('#reform-points-number','101');assert.equal(number.getAttribute('aria-invalid'),'true');assert.match(document.querySelector('#points-error').textContent,/0 bis 100/);assert.equal(document.querySelector('#reform-points').value,'30');
+  setValue('#reform-points','12.49');assert.equal(number.value,'12.49');assert.equal(number.hasAttribute('aria-invalid'),false);assert.match(document.querySelector('[data-scale="current"] .scale-title').textContent,/Kein Pflegegrad/);
+  click('[data-reform-highlight="draft"]');assert.ok(document.querySelector('[data-scale="draft"]').classList.contains('is-emphasized'));assert.equal(document.querySelectorAll('.threshold-scale').length,2);
+  assert.deepEqual([...document.querySelectorAll('.module-value>strong')].map(n=>n.textContent),['20','10']);
+  for(const [module,raw,expected] of [[1,6,['7,5','5']],[2,6,['7,5','7,5']],[3,3,['7,5','7,5']],[4,8,['20','10']],[5,3,['10','10']],[6,1,['3,75','0']]]){
+    setValue('#reform-module-select',String(module),'change');setValue('#reform-raw',String(raw));assert.deepEqual([...document.querySelectorAll('.module-value>strong')].map(n=>n.textContent),expected);assert.equal(document.querySelectorAll('.reform-table-details tbody tr').length,5);
+  }
+  const raw=document.querySelector('#reform-raw-number');raw.focus();setValue('#reform-raw-number','1.5');assert.equal(raw.getAttribute('aria-invalid'),'true');assert.equal(document.querySelector('#reform-raw').value,'1');assert.equal(document.activeElement,raw);
+  setValue('#reform-raw-number','18');assert.deepEqual([...document.querySelectorAll('.module-value>strong')].map(n=>n.textContent),['15','15']);
+  click('[data-weight-module="2"]');assert.match(document.querySelector('#weight-detail').textContent,/höhere gewichtete Wert/);assert.equal(document.querySelector('[data-weight-group="23"]').getAttribute('aria-pressed'),'true');
+  click('[data-weight-module="3"]');assert.equal(document.querySelectorAll('.weight-stack [aria-pressed="true"]').length,1);assert.match(document.querySelector('#weight-detail').textContent,/Verhaltensweisen/);
+  click('[data-weight-group="4"]');assert.equal(document.querySelector('[data-weight-module="4"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('.weight-big').textContent,/40/);
+  click('[data-reform-jump="reform-module"]');assert.equal(document.activeElement.id,'module-heading');assert.equal(location.hash,'#/reform');dom.window.close();
+});
+test('Reform sliders are isolated from existing answers and scoring; legacy reform information remains accessible',async()=>{
+  const dom=await setup('/rechner');await start();choose('answer','3');await navigate('/reform');setValue('#reform-points','100');setValue('#reform-raw','54');click('[data-reform-highlight="draft"]');await navigate('/rechner');assert.equal(document.querySelector('input[name="answer"]:checked').value,'3');
+  click('[data-action="result"]');await tick();assert.match(document.querySelector('.result-status').textContent,/offen|beantwortet|vollständig/i);
+  await navigate('/reform-details');assert.ok(document.querySelector('.reference-section'));assert.match(document.querySelector('main').textContent,/Widerspruch/);dom.window.close();
 });
