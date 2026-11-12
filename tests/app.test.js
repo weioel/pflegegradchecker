@@ -75,3 +75,48 @@ test('Structural accessibility checks on landing, questionnaire, results and gui
   };
   await check('Landing');await navigate('/rechner');await check('Introduction');await start();await check('Question');click('[data-action="result"]');await tick();await check('Incomplete result');await navigate('/ratgeber');await check('Guide');dom.window.close();
 });
+
+test('Redesign: care-grade selector and FAQ topics expose all content without changing the calculation',async()=>{
+  const dom=await setup();
+  for(const [grade,expected] of [[1,'12,5 bis unter 27'],[2,'27 bis unter 47,5'],[3,'47,5 bis unter 70'],[4,'70 bis unter 90'],[5,'90 bis 100']]){
+    click(`[data-grade="${grade}"]`);assert.equal(document.querySelectorAll('[data-grade][aria-pressed="true"]').length,1);assert.ok(document.querySelector('#grade-display').textContent.includes(expected));
+  }
+  await navigate('/faq');assert.equal(document.querySelectorAll('[data-faq-panel] details').length,15);
+  for(const filter of ['grundlagen','rechner','weiteres']){click(`[data-faq-filter="${filter}"]`);assert.equal(document.querySelectorAll('[data-faq-panel]:not([hidden])').length,1);assert.equal(document.querySelector('[data-faq-panel]:not([hidden])').dataset.faqPanel,filter);}
+  dom.window.close();
+});
+
+test('Redesign: each guide deep link opens its step; the application template stays copyable',async()=>{
+  const dom=await setup();
+  for(const id of ['guide-check','guide-apply','guide-prepare','guide-decision','guide-objection','application-card']){
+    await navigate(id);assert.equal(document.getElementById(id).open,true,id);assert.ok(document.querySelector('.step-timeline'));assert.match(document.title,/Pflegegrad beantragen/);
+  }
+  const textarea=document.querySelector('#application-template');assert.ok(textarea.readOnly);assert.match(textarea.value,/hiermit beantrage ich Leistungen/);assert.ok(document.querySelector('[data-action="copy-application"]'));
+  dom.window.close();
+});
+
+test('Redesign: all 64 criteria retain exact labels, values and explanations; chosen explanations open in place',async()=>{
+  const dom=await setup('/rechner');await start();
+  for(const q of QUESTIONS){
+    click(`[data-question="${q.id}"]`);
+    assert.equal(document.querySelector('#question-title').textContent,q.question,q.id);
+    assert.equal(document.querySelector('#question-help').textContent,q.help,q.id);
+    if(q.type==='choice'||q.type==='continence'){
+      if(q.type==='continence')choose('eligible','yes');
+      const inputs=[...document.querySelectorAll('.answer-choice input')];assert.deepEqual(inputs.map(el=>Number(el.value)),q.options.map(o=>o.value),q.id);
+      for(const [i,o] of q.options.entries()){
+        const row=inputs[i].closest('.answer-choice');assert.equal(row.querySelector('.option-label').textContent,o.label);assert.ok(row.textContent.includes(o.description));
+      }
+      choose('answer',String(q.options[0].value));const row=inputs[0].closest('.answer-choice');assert.equal(row.querySelector('.answer-explanation').hidden,false);assert.equal(row.querySelector('.option-help').getAttribute('aria-expanded'),'true');
+    }
+  }
+  dom.window.close();
+});
+
+test('Redesign: module transition adds no confirmation click; leaving the calculator preserves its current question',async()=>{
+  const dom=await setup('/rechner');await start();
+  for(let i=0;i<5;i++){choose('answer','0');submit('question-form');}
+  assert.equal(document.querySelector('#question-title').textContent,QUESTIONS[5].question);assert.match(document.querySelector('.module-milestone').textContent,/5 von 5 geklärt/);
+  await navigate('/ratgeber');assert.match(document.querySelector('.nav-cta').textContent,/fortsetzen/);await navigate('/rechner');assert.equal(document.querySelector('#question-title').textContent,QUESTIONS[5].question);
+  click('[data-question="1.1"]');assert.equal(document.querySelector('input[name="answer"]:checked').value,'0');dom.window.close();
+});

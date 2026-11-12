@@ -20,7 +20,7 @@ npm test
 npm run check
 ```
 
-47 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
+59 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
 
 ## Struktur
 
@@ -29,7 +29,8 @@ npm run check
 - `dist/app.js`: Navigation und Fragenablauf; Antworten nur im Arbeitsspeicher
 - `dist/results.js`: Ergebnis, Balkendiagramme und Rechenweg
 - `dist/pdf.js`: echter lokaler PDF-Download, inklusive aller Antworten und Quellen
-- `dist/home.js`, `dist/content.js`: Startseite, Ratgeber, FAQ, Methodik, Reform und rechtliche Hinweise
+- `dist/home.js`, `dist/content.js`: Startseite und vollständige redaktionelle Inhalte
+- `dist/presentation.js`, `dist/ui.js`: progressive Darstellung, Kacheln, Schritte und Icons ohne Berechnungslogik
 - `dist/styles.css`: responsives Design, Fokuszustände, reduzierte Bewegung und Druckansicht
 - `dist/fonts`: lokal ausgelieferte Inter-Variable-Schrift mit OFL-Lizenz
 - `docs/calculation.md`: vollständiger Rechenweg und dokumentierte Beispiele
@@ -49,3 +50,7 @@ Keine externen Laufzeitbibliotheken, Schriftabrufe, Analytics, Cookies, Benutzer
 Die bereitgestellte Fassung ist eine **private Projektvorschau**. Die Hostingplattform kann hierfür eine Zugangsprüfung verlangen; der Rechner hat kein eigenes Konto. Vor öffentlichem Betrieb sind verifizierter Betreibername, Rechtsform, Anschrift, Kontakt und gegebenenfalls Registerdaten sowie verbindliche Hosting-/Datenschutzangaben einzutragen. Derzeitige Transparenzhinweise sind kein vollständiges öffentliches Impressum und keine abschließend geprüfte Datenschutzerklärung. `noindex, nofollow` dient ausschließlich als Indexierungshinweis; der Schutz der Vorschau erfolgt über die private Hostingfreigabe.
 
 Die Website ersetzt keine fachliche Pflegebegutachtung und trifft keine verbindlichen Leistungsentscheidungen. Besondere Bedarfskonstellationen werden erklärt, aber nicht automatisch eingestuft. Kinder erhalten keinen Erwachsenen-Pflegegrad.
+
+## Redesign vom 12.11.2026
+
+Neue Aufgabenübersicht mit Bento-Grid, fünf direkt anwählbare Antragsschritte, kontextbezogene Antwortbeispiele, FAQ-Themen und kompaktere Ergebnisansicht. Die vollständigen Rechtstexte bleiben verfügbar. Bewertungsdaten, Algorithmus und PDF-Export sind unverändert. Details und Prüfgrenzen stehen in `docs/design-audit.md`.

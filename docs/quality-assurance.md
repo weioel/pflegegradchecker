@@ -21,3 +21,7 @@ Die Website konnte in dieser Sitzung nicht visuell in einem Browser abgenommen w
 Die Berechnung wurde anhand amtlicher Quellen umgesetzt und mit dokumentierten Beispielen getestet. Die alltagsnahen Erläuterungen ersetzen nicht die pflegefachliche Einordnung einzelner Situationen.
 
 Für öffentlichen Betrieb fehlen noch Betreiber- und verbindliche Hostingangaben. Bis dahin wird ausschließlich die private Projektvorschau verwendet.
+
+## Redesign-Nachprüfung vom 12.11.2026
+
+59 Tests erfolgreich. Fachliche Dateien und PDF-Implementierung per SHA-256 unverändert. Die neuen Interaktionen und der Erhalt aller redaktionellen Absätze, Tabellenzellen sowie Quellenlinks sind geprüft. Zusätzliche Ergebnisse und die fortbestehende Einschränkung der visuellen Browserprüfung: siehe `design-audit.md`.
