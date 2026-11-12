@@ -13,7 +13,7 @@ test('IGES original values, relative changes, totals and exclusions belong to fi
 test('All twelve bars use the same zero-based linear scale without minimum-height distortion',()=>{
   const dom=new JSDOM(igesSection());const rows=[...dom.window.document.querySelectorAll('[data-iges-grade]')];assert.equal(rows.length,6);
   for(const [i,button] of rows.entries()){
-    for(const [cls,key] of [['.iges-before','before'],['.iges-model','model']]){const bar=button.querySelector(cls);assert.equal(parseFloat(bar.style.height),IGES.rows[i][key]/500000*100);}
+    for(const [cls,key] of [['.iges-before','before'],['.iges-model','model']]){const bar=button.querySelector(cls);assert.equal(parseFloat(bar.style.height),IGES.rows[i][key]/600000*100);}
     assert.ok(button.querySelector('.iges-row-title strong').textContent.includes('%'));assert.ok(button.getAttribute('aria-label').includes('Fälle'));assert.equal(button.getAttribute('aria-controls'),'iges-detail');
   }
   const text=dom.window.document.body.textContent;for(const phrase of ['keine gesicherte Prognose','nicht der Anteil aller Antragsteller','bereits Anerkannten','1.241','50.243'])assert.ok(text.includes(phrase),phrase);
