@@ -2,6 +2,8 @@
 export const escapeHTML=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function icon(name, className='') {
   const paths={
+    wallet:'<rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 8V5l14-3v3m4 7h-6v5h6m-3-2.5h.1"/>',
+    home:'<path d="m3 10 9-7 9 7v11H3V10Zm6 11v-8h6v8"/>',
     arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
     diagonal:'<path d="M6 18 18 6M6 6h12v12"/>',
     check:'<path d="m5 12 4 4L19 6"/>',
