@@ -61,3 +61,5 @@ details{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:no
 @media(prefers-reduced-motion:reduce){.point-cursor,.module-weight-track span,.benefit-grade-card,.threshold-scale{transition:none}.weight-detail{animation:none}}
 @media print{.reform-section-nav,.reform-bottom-links,.footer-links{display:none}.reform-panel{break-inside:avoid;border:1px solid #ddd}.reform-takeaways{grid-template-columns:repeat(3,1fr)}.benefit-grade-selector{grid-template-columns:repeat(5,1fr)}.mobile-benefit-matrix{display:none}.benefit-grade-card .benefit-status-list{display:grid}}
 .benefit-grade-selector .benefit-grade-card>button:focus-visible{outline-offset:-4px}
+/* Wordmark only, including narrow mobile headers. */
+.site-header .brand{gap:0;font-size:clamp(1.05rem,4.6vw,1.45rem);white-space:nowrap;letter-spacing:-.045em}
