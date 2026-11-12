@@ -63,3 +63,6 @@ details{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:no
 .benefit-grade-selector .benefit-grade-card>button:focus-visible{outline-offset:-4px}
 /* Wordmark only, including narrow mobile headers. */
 .site-header .brand{gap:0;font-size:clamp(1.05rem,4.6vw,1.45rem);white-space:nowrap;letter-spacing:-.045em}
+/* Monthly amounts stay on the same line as their benefit names. */
+.grade-row-amount{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600;font-size:.75rem;margin-left:auto;flex-shrink:0}.benefit-grade-card li:has(.grade-row-amount){gap:5px;flex-wrap:nowrap}.benefit-grade-card li:has(.grade-row-amount) .benefit-category-label{gap:4px;font-size:.72rem;white-space:nowrap}.benefit-grade-card li:has(.grade-row-amount) .benefit-category-label .icon{display:none}.benefit-grade-card li:has(.grade-row-amount) .benefit-status{width:18px;height:18px;font-size:.75rem}.mobile-benefit-matrix .grade-row-amount{font-size:1rem}
+@media(min-width:761px) and (max-width:1100px){.benefit-grade-selector{grid-template-columns:repeat(5,minmax(175px,1fr));overflow-x:auto;padding-bottom:8px}}
