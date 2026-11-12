@@ -20,21 +20,24 @@ npm test
 npm run check
 ```
 
-59 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
+73 automatisierte Tests: komplette amtliche Tabellen, Pflegegradgrenzen mit Nachbarwerten, Modul-2/3-Kombination, Modul-4-Sonderwerte, Modul-5-Frequenzen und Rundung, Unbekannt-Bereiche, vollständiger Durchlauf durch 64 Fragen, Bearbeiten/Zurücksetzen, Erwachsenenprüfung, strukturelle Barrierefreiheit und tatsächliche PDF-Erstellung.
 
 ## Struktur
 
 - `dist/data.js`: versionierte Fragen, Antwortwerte, Tabellen und Quellen
 - `dist/calculator.js`: validierter reiner Algorithmus
 - `dist/app.js`: Navigation und Fragenablauf; Antworten nur im Arbeitsspeicher
-- `dist/results.js`: Ergebnis, Balkendiagramme und Rechenweg
+- `dist/results.js`: Pflegegrad, passende Leistungen und aufklappbarer Rechenweg
+- `dist/benefits-data.js`, `dist/benefits.js`: versionierte aktuelle Leistungen, Quellen und interaktive Pflegegrad-/Pflegeortauswahl
+- `dist/question-copy.js`: verständliche Anzeigeformulierungen ohne Änderung der Bewertung
 - `dist/pdf.js`: echter lokaler PDF-Download, inklusive aller Antworten und Quellen
 - `dist/home.js`, `dist/content.js`: Startseite und vollständige redaktionelle Inhalte
 - `dist/presentation.js`, `dist/ui.js`: progressive Darstellung, Kacheln, Schritte und Icons ohne Berechnungslogik
 - `dist/styles.css`: responsives Design, Fokuszustände, reduzierte Bewegung und Druckansicht
 - `dist/fonts`: lokal ausgelieferte Inter-Variable-Schrift mit OFL-Lizenz
 - `docs/calculation.md`: vollständiger Rechenweg und dokumentierte Beispiele
-- `docs/legal-research.md`: amtliche Quellen und Rechts-/Reformstand
+- `docs/legal-research.md`: amtliche Grundlagen der Bewertung
+- `docs/benefits-research.md`: aktuelle Leistungsbeträge, Kombinationen und Reformstand vom 12.11.2026
 - `docs/quality-assurance.md`: Prüfergebnisse und Grenzen der Verifikation
 
 ## Rechtlicher Stand
@@ -51,6 +54,10 @@ Die bereitgestellte Fassung ist eine **private Projektvorschau**. Die Hostingpla
 
 Die Website ersetzt keine fachliche Pflegebegutachtung und trifft keine verbindlichen Leistungsentscheidungen. Besondere Bedarfskonstellationen werden erklärt, aber nicht automatisch eingestuft. Kinder erhalten keinen Erwachsenen-Pflegegrad.
 
-## Redesign vom 12.11.2026
+## Gezielte Vereinfachung vom 12.11.2026
 
-Neue Aufgabenübersicht mit Bento-Grid, fünf direkt anwählbare Antragsschritte, kontextbezogene Antwortbeispiele, FAQ-Themen und kompaktere Ergebnisansicht. Die vollständigen Rechtstexte bleiben verfügbar. Bewertungsdaten, Algorithmus und PDF-Export sind unverändert. Details und Prüfgrenzen stehen in `docs/design-audit.md`.
+Drei Aufgaben auf der Startseite, dezente Pastellfarben, drei praktische Antragsschritte und Musterantrag als Kopie/Textdatei. Der Selbstcheck zeigt vorrangig die aktuelle Frage; Hilfen und Fachbegriffe öffnen sich bei Bedarf. Das Ergebnis zeigt den möglichen Pflegegrad, passende Leistungen und den nächsten Schritt. Detaillierte Punkte und PDF bleiben erhalten.
+
+Die neue Leistungsübersicht erklärt alle fünf Pflegegrade mit getrennten Ansichten für Pflege zu Hause und im Heim. Beträge, Zeiträume und Geld-/Sach-/Erstattungsleistungen sind getrennt ausgewiesen. Aktuelle Werte wurden am 12.11.2026 gegen SGB XI und BMG geprüft; PNOG-Entwurfswerte sind nicht aktiv. Bewertungsdaten, Algorithmus und PDF-Export bleiben byteidentisch.
+
+Browserzugriff war nicht verfügbar. Automatisierte Funktions- und Strukturprüfungen sind abgeschlossen; eine echte mobile Sichtprüfung bleibt offen.

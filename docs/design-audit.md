@@ -34,3 +34,17 @@ Die vorhandenen redaktionellen Volltexte in content.js werden für die Darstellu
 - Native HTML-Details, ARIA-Zustände, Fokusführung, reduzierte Bewegung, mobile Navigation bis 960 px und vergrößerte Antwortflächen sind berücksichtigt. Automatisierte strukturelle Accessibility-Prüfungen bleiben erfolgreich.
 - Visuelle Browserprüfung weiterhin nicht möglich: Der Computer-Use-Browserdienst meldet auch am 12.11.2026 „The browser access host is unavailable“. Keine Behauptung einer visuellen Desktop-/Mobilabnahme oder vollständigen WCAG-Zertifizierung.
 - Rechts-/Reformstand weiterhin ausdrücklich 11.11.2026. Dieses Redesign aktualisiert keine gesetzlichen Regeln.
+
+## Gezielte Vereinfachung und Leistungen – zweite Überarbeitung am 12.11.2026
+
+Befund aus Sicht einer erstmals antragstellenden älteren Person: Die bisherige Startseite verlangte nach dem Rechner noch eine Modulvorschau, Vertrauensleiste, Pflegegrade, fünf Antragsschritte, Grundlagen, FAQ und Reforminformation. Dieselben Hinweise wiederholten sich in Einleitung, Seitenleiste und Footer. Im Ergebnis konkurrierten Punktzahl, Module und drei nächste Schritte um Aufmerksamkeit.
+
+Umgesetzt: genau drei Aufgaben auf der Startseite, mit Eisblau für Selbstcheck, Salbei für Antrag und Lavendel für Leistungen. Drei praktische Antragsschritte mit optionaler Vertiefung, Muster zum Kopieren und lokalen Textdatei-Download. Vollständige ursprüngliche Rechtstexte bleiben erhalten. Im Selbstcheck kurze Antwortbezeichnungen nur für die eindeutigen Selbstständigkeitsskalen in Modul 1/4/6; offizielle Labels, Punkte und Beispiele bleiben separat aufrufbar. Häufigkeitsskalen und Sonderantworten behalten ihre Bedeutung. Nur ausgewählte sperrige Fragen haben eine zusätzliche verständliche Anzeigeform; der vollständige Ausgangstext bleibt in der Hilfe.
+
+Das Ergebnis führt mit Pflegegrad und dessen Bedeutung, passenden Leistungen und einem nächsten Schritt. Alle Module, Kriterien, Formeln und Unsicherheitsinformationen bleiben verfügbar. Bewertungsdateien und PDF-Modul unverändert (SHA-256-Regressionstest).
+
+Leistungen sind ein eigener Hauptbereich: fünf auswählbare Pflegegrade, häusliche und stationäre Versorgung getrennt, große Eurobeträge und sichtbare Budgetart/Einheit. Monatsansprüche werden nicht zusammengezählt. Weitere Hilfen, Kombinationen und Quellen öffnen sich bei Bedarf. Die Auswahl aus einem vollständigen Ergebnis wird ausschließlich im flüchtigen Browserzustand übernommen, nicht im URL oder in persistentem Speicher.
+
+Mobile Regeln: drei Kacheln untereinander, kompakte fünfteilige Gradeauswahl, einspaltige Leistungsansicht, eindeutige 48–50px-Bedienelemente. Fließtexte werden durch Kürzung reduziert, nicht durch kleinere Schrift. Pastelltöne haben dunkle Schrift, sichtbare Fokuslinien und explizite Auswahlzustände. Bewegungsreduktion bleibt aktiv.
+
+Grenze: Browserhost erneut nicht verfügbar; keine visuellen Screenshots oder tatsächlichen mobilen Layoutmessungen möglich. Die Aussage „WCAG vollständig erfüllt“ wird daher nicht getroffen. Struktur und Interaktionen wurden mit JSDOM/axe geprüft.

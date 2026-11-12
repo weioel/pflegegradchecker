@@ -25,3 +25,13 @@ Für öffentlichen Betrieb fehlen noch Betreiber- und verbindliche Hostingangabe
 ## Redesign-Nachprüfung vom 12.11.2026
 
 59 Tests erfolgreich. Fachliche Dateien und PDF-Implementierung per SHA-256 unverändert. Die neuen Interaktionen und der Erhalt aller redaktionellen Absätze, Tabellenzellen sowie Quellenlinks sind geprüft. Zusätzliche Ergebnisse und die fortbestehende Einschränkung der visuellen Browserprüfung: siehe `design-audit.md`.
+
+## Vereinfachung und Leistungsübersicht, 12.11.2026
+
+- `npm run check`: alle bisherigen und drei neuen JS-Module syntaktisch geprüft.
+- `npm test`: 73 Tests erfolgreich. Darunter unabhängige Referenzwerte für acht Leistungsarten in allen fünf Pflegegraden, Anspruchsausschluss PG1, Zeiteinheiten, Quellen, Auswahl/Fokus und Pflegeortwechsel, Ergebnisverknüpfung ohne Gesundheitsdaten in URLs, Kopieren/Download des Musterantrags sowie zusätzliche axe-Prüfungen der Leistungsansichten.
+- Vollständiger 64-Fragen-Durchlauf, Unsicherheiten, Bearbeiten, Zurücksetzen, Modulsonderregeln, Grenzen und PDF-Regressionsprüfungen weiterhin erfolgreich.
+- `data.js`, `calculator.js`, `pdf.js` byteidentisch zum vorherigen Stand. Ursprüngliche Ratgeber-/Rechtsabsätze und Primärquellen vollständig in der neuen Darstellung erhalten.
+- Kein neuer Laufzeitdienst, keine externe Schrift, kein Analytics, keine zusätzliche Speicherung. Auswahlgrade nur im Arbeitsspeicher.
+- Aktuelle Leistungsquellen und Reformtrennung: `docs/benefits-research.md`.
+- Erneuter Browserinventar-Aufruf meldet „The browser access host is unavailable“. Deshalb sind echte Browserdarstellung, mobile Layouts, Zoom und Farbkontraste nicht im Browser verifiziert. axe in JSDOM prüft strukturelle WCAG-Regeln, keine Layout-/Kontrastberechnung.
