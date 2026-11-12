@@ -1,4 +1,4 @@
-# Pflegekompass von Caro
+# Pflegegradchecker von Caro
 
 Vollständige browserlokale Pflegegrad-Selbsteinschätzung für Erwachsene. Statische Website ohne Build-Schritt und ohne Backend für Gesundheitsantworten.
 

@@ -9,8 +9,8 @@ const pages=[['/ratgeber',guidePage],['/faq',faqPage],['/quellen',sourcesPage],[
 const normalized=text=>text.replace(/\s+/g,' ').trim();
 function visibleText(el){if(el.nodeType===3)return el.textContent;if(el.nodeType!==1&&el.nodeType!==11)return '';if(el.hidden||el.classList?.contains('sr-only'))return '';if(el.tagName==='DETAILS'&&!el.open)return visibleText(el.querySelector('summary'));return [...el.childNodes].map(visibleText).join(' ');}
 
-test('Redesign keeps scoring data, calculation and PDF implementation byte-for-byte unchanged',async()=>{
-  const expected={data:'be785827fa41493f61735d8e1948ec859cde080cf4ae510efeca576c062b73bb',calculator:'9f297b038400632468700c7188371d0274c3629df2719008fd5fc2dd1bbc303a',pdf:'6c1ca4e20281eebd6a5ad34a5d66dc837dc4f746e737a06642c8b13226b3f9c7'};
+test('Redesign keeps scoring data, calculation unchanged; PDF changes limited to approved branding',async()=>{
+  const expected={data:'be785827fa41493f61735d8e1948ec859cde080cf4ae510efeca576c062b73bb',calculator:'9f297b038400632468700c7188371d0274c3629df2719008fd5fc2dd1bbc303a',pdf:'67c782fc82744645efc0e865a6c58f48e1f759cf6b6994c731cdaac2cad3f7aa'};
   for(const [file,hash] of Object.entries(expected)){const bytes=await fs.readFile(new URL(`../dist/${file}.js`,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),hash,file);}
 });
 for(const [route,render] of pages)test(`Redesign preserves full body paragraphs, table cells and official links: ${route}`,()=>{
