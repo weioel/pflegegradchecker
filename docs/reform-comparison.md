@@ -47,3 +47,15 @@ Erneut mit [BMG-Leistungsübersicht 2026](https://www.bundesgesundheitsministeri
 - Pflegehilfsmittel und Wohnraumanpassung: PG1–5 bei spezifischem Bedarf nach §40, deshalb bedingter Status. Technische Hilfsmittel sind gesondert vom Verbrauchsbudget.
 
 Die Matrix beschreibt häusliche Pflege nach Anerkennung und allgemeinen Voraussetzungen, keine automatischen Auszahlungen. Vollstationäre Leistungen werden in einer getrennten Ansicht dargestellt. Gesetzlich notwendige Details und alle bisherigen Hilfen bleiben aufklappbar.
+
+## Einführung und IGES-Vergleich, 12.11.2026
+
+Reihenfolge: sechs Module/Gewichtung mit drei Punkteschritten; Pflegegradgrenzen; Umrechnung; Zusammenfassung; IGES-Modell. Beispiele geltend: einzelnes Mobilitätskriterium 0/1/2/3; Mobilitätssumme 5 -> 5 gewichtet; unabhängiges Beispiel 35 Gesamtpunkte -> PG2. Kein zusätzlicher Berechnungsmodus.
+
+Neue Datenversion `iges-table9-v2-2026-04-v1` in `dist/iges.js`. Originalbericht erfolgreich geöffnet und Tabelle 9 geprüft: gedruckte S.91 entspricht PDF-Seite93. Die Originaldaten des Nutzers stimmen vollständig überein. Quelle: https://www.gkv-spitzenverband.de/media/dokumente/pflegeversicherung/forschung/projekte_unterseiten/IGES_Entwicklung_Pflegepraevalenz_Abschlussbericht_final-2026-04-22.pdf#page=93
+
+Je Spalte 1.218.275 Erstbegutachtungen aus 2024, anerkannt PG1–5: 980.885 bzw.764.691 (-22,0%). Originaltabelle schließt 1.241 ungültige/unvollständige Fälle und weitere 50.243 Aktenlagen ohne Einzelpunkte aus. Kein Bevölkerungshochrechnen und keine echten Fallzahlen 2027. Variante2 kombiniert die höheren Grenzen und geänderte Modulintervalle des Expertenbeirats; sie ist nicht als unveränderliche Simulation des endgültigen PNOG zu verstehen.
+
+Alle zwölf Balken sind linear auf 0–500.000 skaliert, ohne Mindestbalkenbreite oder kategoriespezifische Skalierung. Eine gemeinsame Skala bleibt auch mobil erhalten. Direkt sichtbare relative Prozentwerte, Tastatur-/Tap-Auswahl und eine stabile Live-Region zeigen genaue Fallzahlen. Ausgewählte Kategorie bleibt bei Navigation erhalten. 91,1% meint die Veränderung der Nichtanerkennungsfälle, nicht ihren Anteil an allen Anträgen. 3,8% mehr PG1 erklärt keine leichteren Voraussetzungen. 22% weniger Anerkennungen bezieht sich ausschließlich auf neu berechnete Erstgutachten, nicht auf Entziehung bestehender Grade.
+
+Gesetzgebungsstand erneut gegen die Bundestagsseiten zur ersten Lesung und angekündigten Anhörung geprüft: nach dem Stand vom12.11.2026 weiterhin Entwurf. §15 und Anlage2 erfolgreich direkt geöffnet, Entwurfs-PDF S.28/54 erneut abgerufen. Keine neuen geltenden Schwellen oder Modulintervalle festgestellt.

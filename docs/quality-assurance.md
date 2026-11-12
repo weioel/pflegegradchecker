@@ -45,3 +45,7 @@ Für öffentlichen Betrieb fehlen noch Betreiber- und verbindliche Hostingangabe
 - Rechnerdaten, Algorithmus und PDF per SHA-256 unverändert. Alle bestehenden 64-Fragen-/PDF- und Guide-Tests weiterhin erfolgreich.
 - Browserinventar und Öffnen der Vorschau scheiterten erneut mit „The browser access host is unavailable“. Native Chrome-Steuerung wurde nicht erneut umgangen. Daher keine behauptete mobile Sichtprüfung, Layout-/Zoom- oder Browser-Kontrastabnahme. Responsive Regeln bis 320 px, Tastaturbedienung und reduzierte Bewegung sind implementiert, aber visuell noch nicht im echten Browser bestätigt.
 - Footer enthält nur notwendige Navigationslinks. Betreiber-/Datenschutzhinweise bleiben in den jeweiligen Seiten; Zugriff bleibt owner-private.
+
+## IGES und Reihenfolge, 12.11.2026
+
+Neue Prüfungen: Originalfallzahlen/gerundete relative Änderungen/Summen; gleiche lineare Skalierung aller zwölf Balken; Modellhinweise und Ausschlüsse; Reihenfolge; alle sechs Kategorien antippbar mit Fokus und persistierter Auswahl. Bestehende Regler, Gewichtungen, Rechner und PDF unverändert. Browserinventar meldet weiterhin „The browser access host is unavailable“; daher keine echte mobile Sichtprüfung. Strukturprüfung mit axe erfasst den erweiterten Reformbereich weiterhin.

@@ -86,7 +86,7 @@ function render({focus=true}={}){
   main.innerHTML=['/ratgeber','/faq','/quellen','/reform-details','/datenschutz','/impressum'].includes(route)?'<div class="page route-enter">'+presentContent(route==='/reform-details'?'/reform':route,content)+'</div>':content;document.title=`${title} · Pflegegradchecker von Caro`;
   updateNavigation();
   revealObserver?.disconnect();
-  if(window.IntersectionObserver&&!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){revealObserver=new window.IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.08});document.querySelectorAll('.home-bento>.bento,.knowledge-grid>.bento,.application-path').forEach(el=>{el.classList.add('reveal-on-scroll');revealObserver.observe(el);});}
+  if(window.IntersectionObserver&&!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){revealObserver=new window.IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:.08});document.querySelectorAll('.home-bento>.bento,.knowledge-grid>.bento,.application-path,.iges-panel').forEach(el=>{el.classList.add('reveal-on-scroll');revealObserver.observe(el);});}
   if(focus){window.scrollTo({top:0,behavior:'instant'});(document.querySelector('#question-title')||main).focus({preventScroll:true});}
 }
 function updateNavigation(){

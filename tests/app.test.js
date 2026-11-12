@@ -183,3 +183,15 @@ test('Reform sliders are isolated from existing answers and scoring; legacy refo
   click('[data-action="result"]');await tick();assert.match(document.querySelector('.result-status').textContent,/offen|beantwortet|vollständig/i);
   await navigate('/reform-details');assert.ok(document.querySelector('.reference-section'));assert.match(document.querySelector('main').textContent,/Widerspruch/);dom.window.close();
 });
+
+test('Reform narrative order, three point steps and IGES tap interaction preserve all controls',async()=>{
+  const dom=await setup('/reform');
+  assert.deepEqual([...document.querySelectorAll('main section[id]')].map(s=>s.id),['reform-gewichtung','reform-grenzen','reform-module','reform-auswirkungen']);
+  assert.equal(document.querySelectorAll('.points-journey>li').length,3);assert.match(document.querySelector('.points-journey').textContent,/35/);assert.match(document.querySelector('#weight-heading').textContent,/Wie wird ein Pflegegrad berechnet/);
+  for(const [grade,before,model,percent] of [[0,'237.390','453.584','+91,1 %'],[1,'365.938','379.800','+3,8 %'],[2,'447.931','287.411','−35,8 %'],[3,'136.301','75.171','−44,8 %'],[4,'24.551','16.926','−31,1 %'],[5,'6.164','5.383','−12,7 %']]){
+    const button=document.querySelector(`[data-iges-grade="${grade}"]`);button.focus();button.click();assert.equal(document.activeElement,button);assert.equal(document.querySelectorAll('.iges-row[aria-pressed="true"]').length,1);const detail=document.querySelector('#iges-detail');assert.ok(detail.textContent.includes(before));assert.ok(detail.textContent.includes(model));assert.ok(detail.textContent.includes(percent));
+  }
+  click('[data-reform-jump="reform-auswirkungen"]');assert.equal(document.activeElement.id,'iges-heading');
+  await navigate('/ratgeber');await navigate('/reform');assert.equal(document.querySelector('[data-iges-grade="5"]').getAttribute('aria-pressed'),'true');
+  assert.ok(document.querySelector('#reform-points'));assert.ok(document.querySelector('#reform-raw'));assert.equal(document.querySelectorAll('[data-weight-module]').length,6);dom.window.close();
+});
