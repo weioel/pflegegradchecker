@@ -34,7 +34,7 @@ test('Result previews only show applicable benefits and an explicit non-entitlem
 test('Five price-free grade cards expose seven labelled statuses and one shared annual budget',()=>{
   const dom=new JSDOM(benefitsPage(2)),doc=dom.window.document;
   const cards=[...doc.querySelectorAll('.benefit-grade-card')];assert.equal(cards.length,5);
-  for(const card of cards){assert.ok(!card.textContent.includes('€'));assert.equal(card.querySelectorAll('[data-category]').length,7);assert.equal(card.querySelectorAll('.benefit-status .sr-only').length,7);}
+  for(const card of cards){const grade=Number(card.querySelector('button').dataset.benefitGrade);assert.equal(card.querySelectorAll('.grade-row-amount').length,grade===1?0:2);assert.equal(card.querySelectorAll('[data-category]').length,7);assert.equal(card.querySelectorAll('.benefit-status .sr-only').length,7);}
   const first=cards[0];for(const id of ['cash','services','replacement'])assert.equal(first.querySelector(`[data-category="${id}"]`).dataset.status,'unavailable');
   assert.equal(first.querySelector('[data-category="shortTerm"]').dataset.status,'unavailable');assert.match(first.querySelector('[data-category="shortTerm"]').textContent,/Nur über den Entlastungsbetrag/);
   for(const c of BENEFIT_CATEGORIES){assert.equal(c.statuses.length,5);for(const id of c.sources)assert.ok(BENEFIT_SOURCES[id]);}
