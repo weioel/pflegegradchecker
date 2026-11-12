@@ -4,7 +4,7 @@ import { guidePage, faqPage, sourcesPage, reformPage, privacyPage, imprintPage }
 import { homePage } from './home.js';
 import { benefitsPage, benefitsContent } from './benefits.js';
 import { newReformState } from './reform-data.js';
-import { reformComparisonPage, handleReformInput, handleReformChange, handleReformClick } from './reform.js';
+import { reformComparisonPage, handleReformInput, handleReformClick } from './reform.js';
 import { questionLabel, optionLabel } from './question-copy.js';
 import { presentContent } from './presentation.js';
 import { icon } from './ui.js';
@@ -128,7 +128,6 @@ document.addEventListener('submit',event=>{
 });
 document.addEventListener('input',event=>handleReformInput(event,reformState));
 document.addEventListener('change',event=>{
-  if(handleReformChange(event,reformState))return;
   if(event.target.name==='adult'){state.adult=event.target.value==='yes';document.querySelector('#child-warning').hidden=state.adult;document.querySelector('#start-button').disabled=!state.adult;document.querySelector('#intro-error').textContent='';}
   if(event.target.name==='duration')state.duration=event.target.value;
   if(event.target.closest('#question-form')){
