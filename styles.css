@@ -97,3 +97,55 @@ details{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:no
 @media(min-width:761px) and (max-width:960px){.conversion-module-switch{grid-template-columns:repeat(3,minmax(0,1fr))}.conversion-module-switch>button{min-height:54px}}
 @media(max-width:760px){.conversion-module-picker{margin:20px 0}.conversion-module-switch{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:5px;border-radius:14px}.conversion-module-switch>button{min-height:56px;padding:12px 10px;border-radius:9px}.conversion-module-name{font-size:.94rem;line-height:1.4}.conversion-module-picker>p{font-size:.875rem;margin-bottom:10px}}
 @media(prefers-reduced-motion:reduce){.conversion-module-switch>button{transition:none}}
+
+/* Application guide: clear steps and a practical document companion. */
+.application-header{margin-bottom:36px}
+.application-header .guide-quick-action{margin-top:18px;justify-content:space-between;gap:12px}
+.application-header .guide-quick-action p{font-size:1.1rem;color:var(--muted)}
+.application-header .guide-quick-action .text-link{font-size:.95rem}
+.application-guide{max-width:none;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);gap:32px;align-items:start}
+.application-main,.application-side{min-width:0}
+.application-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 18px}
+.application-section-heading h2{font-size:1.25rem;letter-spacing:-.025em}
+.application-section-heading>span{font-size:.875rem;color:var(--muted)}
+.application-guide .guide-steps{gap:14px}
+.application-guide .guide-steps>.guide-step{background:var(--sage);border-radius:20px;box-shadow:none;transition:background .2s}
+.application-guide .guide-steps>.guide-step:nth-child(2){background:#f3f0fa}
+.application-guide .guide-steps>.guide-step:nth-child(3){background:#f5f5f5}
+.application-guide .guide-steps>.guide-step>summary{padding:27px 55px 27px 25px;gap:20px;min-height:124px;align-items:center}
+.application-guide .guide-step>summary:after{top:50%;transform:translateY(-50%);right:23px}
+.application-guide .step-index{width:45px;height:45px;display:grid;place-items:center;align-self:center;padding:0;border-radius:14px;background:#ffffffa8;color:#333;font-size:.9rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.application-guide .step-summary strong{font-size:1.2rem;line-height:1.3}
+.application-guide .step-summary>span{font-size:.94rem;line-height:1.55;max-width:36ch;margin-top:7px;color:#555}
+.application-guide .guide-body{padding:0 26px 28px;font-size:1rem}
+.application-guide .guide-body>p:first-child{border-top:1px solid #11111114;padding-top:22px}
+.application-guide .guide-body h3{font-size:1.1rem}
+.application-side{display:grid;gap:16px;padding-top:47px;grid-column:2;grid-row:1/3}
+.application-starter{background:var(--ice);border-radius:22px;padding:30px}
+.application-tool-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#ffffffb3;flex-shrink:0}
+.application-starter>.eyebrow{margin-top:25px;font-size:.8rem;letter-spacing:.035em}
+.application-starter>h2{font-size:clamp(1.7rem,2.5vw,2.2rem);line-height:1.15;margin-top:10px}
+.application-starter>p:not(.eyebrow){margin-top:16px;font-size:1rem;line-height:1.6;color:#555}
+.application-starter>.button{margin-top:25px;width:100%;justify-content:space-between;font-size:.94rem;padding:14px 18px}
+.application-guide .application-template-panel{margin-top:14px;padding:0;background:transparent;border:0;border-radius:0}
+.application-guide .application-template-panel>summary{min-height:48px;font-size:.94rem;font-weight:400;padding-right:25px}
+.application-template-panel textarea{width:100%;min-width:0;font-size:1rem;line-height:1.6;padding:16px;background:#ffffffc9}
+.application-guide .application-template-panel .button{width:100%;margin:8px 0 0;white-space:normal;font-size:.94rem;gap:10px}
+.application-guide .application-template-panel>p,.application-guide .application-template-panel>label{font-size:.94rem;line-height:1.6}
+.application-benefits{display:flex;gap:14px;align-items:center;background:#f5f5f5;padding:22px;border-radius:18px;text-decoration:none;transition:background .2s}
+.application-benefits>span:nth-child(2){flex:1;min-width:0}
+.application-benefits strong{display:block;font-size:1rem;font-weight:500;line-height:1.4}
+.application-benefits>span>span{display:block;margin-top:5px;font-size:.875rem;color:#555}
+.application-benefits>.icon{width:18px;height:18px}
+.application-benefits:hover{background:#eeeeee}
+.application-guide .guide-extras{margin-top:0;gap:0;grid-column:1}
+.application-guide .guide-extras>h2{font-size:1.15rem;margin-bottom:10px}
+.application-guide .guide-extras>.guide-step{background:transparent;border-radius:0;box-shadow:none;border-bottom:1px solid var(--line)}
+.application-guide .guide-extras>.guide-step>summary{padding:20px 35px 20px 0;min-height:64px}
+.application-guide .guide-extras .step-summary strong{font-size:1rem;line-height:1.5}
+.application-guide .guide-extras .guide-body{padding:0 0 24px}
+.application-guide .guide-extras .guide-step>summary:after{right:6px}
+@media(min-width:1000px){.application-side{position:sticky;top:100px}}
+@media(max-width:900px){.application-guide{gap:22px;grid-template-columns:minmax(0,1.3fr) minmax(280px,1fr)}.application-starter{padding:24px}.application-guide .guide-steps>.guide-step>summary{padding-left:20px;gap:13px}.application-guide .step-index{width:36px;height:36px;border-radius:11px}}
+@media(max-width:700px){.application-header{margin-bottom:28px}.application-header .guide-quick-action{display:block;margin-top:14px}.application-header .guide-quick-action p{font-size:1rem}.application-header .guide-quick-action .text-link{margin-top:7px;font-size:.94rem}.application-guide{grid-template-columns:1fr;gap:26px}.application-section-heading{margin-bottom:14px}.application-section-heading h2{font-size:1.15rem}.application-guide .guide-steps{gap:10px}.application-guide .guide-steps>.guide-step>summary{padding:22px 43px 22px 18px;min-height:108px;gap:13px}.application-guide .guide-step>summary:after{right:16px}.application-guide .step-summary strong{font-size:1.1rem}.application-guide .step-summary>span{font-size:.94rem}.application-guide .guide-body{padding:0 20px 24px}.application-side{padding-top:0;grid-column:auto;grid-row:auto}.application-starter{padding:24px}.application-starter>.eyebrow{margin-top:19px}.application-starter>h2{font-size:1.9rem}.application-starter>.button{font-size:1rem;min-height:50px;margin-top:20px}.application-guide .application-template-panel{padding:0}.application-benefits{padding:20px}.application-guide .guide-extras{margin-top:0}}
+@media(prefers-reduced-motion:reduce){.application-guide .guide-step,.application-benefits{transition:none}}

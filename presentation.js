@@ -6,6 +6,7 @@ export function presentContent(route,markup){
   const root=template.content;
   const header=root.querySelector('.page-header');
   if(route==='/ratgeber'){
+    header.classList.add('application-header');
     header.querySelector('h1').textContent='Pflegegrad beantragen.';
     header.querySelector('.lead').remove();
     header.querySelector('.eyebrow')?.remove();
@@ -18,15 +19,22 @@ export function presentContent(route,markup){
       if(i===1){application=section.querySelector('details');application?.remove();}
       const titles={1:'Pflegekasse kontaktieren',2:'Begutachtung vorbereiten',3:'Bescheid erhalten'};
       const summaries={1:'Bei Ihrer Krankenkasse oder privaten Pflegeversicherung beantragen.',2:'Medizinischer Dienst oder Medicproof prüft den Hilfebedarf.'};
-      details.innerHTML=`<summary>${i>0&&i<4?`<span class="step-index">${i}</span>`:''}<span class="step-summary"><strong>${titles[i]||data.title}</strong>${summaries[i]?`<span>${summaries[i]}</span>`:''}</span></summary><div class="guide-body prose">${section.innerHTML}</div>`;
+      details.innerHTML=`<summary>${i>0&&i<4?`<span class="step-index">0${i}</span>`:''}<span class="step-summary"><strong>${titles[i]||data.title}</strong>${summaries[i]?`<span>${summaries[i]}</span>`:''}</span></summary><div class="guide-body prose">${section.innerHTML}</div>`;
       mapped.push(details);
     }
-    const layout=document.createElement('div');layout.className='simple-guide';
-    const nav=document.createElement('nav');nav.className='step-timeline compact-timeline';nav.setAttribute('aria-label','Drei Schritte zum Pflegegrad');nav.innerHTML='<ol><li><a href="#guide-apply"><span class="timeline-number">1</span>Beantragen</a></li><li><a href="#guide-prepare"><span class="timeline-number">2</span>Begutachtung</a></li><li><a href="#guide-decision"><span class="timeline-number">3</span>Bescheid</a></li></ol>';layout.append(nav);
-    const list=document.createElement('div');list.className='guide-steps';list.append(mapped[1],mapped[2],mapped[3]);layout.append(list);
-    if(application){application.id='application-card';application.className='application-template-panel';application.querySelector('summary').innerHTML=`${icon('document')} <span>Musterantrag kopieren oder herunterladen</span>`;const download=document.createElement('button');download.className='button secondary';download.dataset.action='download-application';download.textContent='Als Textdatei herunterladen';application.querySelector('[data-action="copy-application"]').after(download);layout.append(application);}
-    const extras=document.createElement('div');extras.className='guide-extras';extras.append(mapped[0],mapped[4]);layout.append(extras);
-    const tools=document.createElement('div');tools.className='guide-quick-action';tools.innerHTML=`<a class="button primary" href="#application-card">Musterantrag öffnen ${icon('arrow')}</a><a class="text-link" href="#/leistungen">Leistungen ansehen ${icon('arrow')}</a>`;header.append(tools);
+    const layout=document.createElement('div');layout.className='simple-guide application-guide';
+    const primary=document.createElement('div');primary.className='application-main';
+    primary.innerHTML='<div class="application-section-heading"><h2>Ihr Weg zum Pflegegrad</h2><span>3 Schritte</span></div>';
+    const list=document.createElement('div');list.className='guide-steps';list.append(mapped[1],mapped[2],mapped[3]);primary.append(list);
+    const extras=document.createElement('div');extras.className='guide-extras';extras.innerHTML='<h2>Gut zu wissen</h2>';extras.append(mapped[0],mapped[4]);
+    const side=document.createElement('aside');side.className='application-side';side.setAttribute('aria-label','Hilfe für Ihren Antrag');
+    const starter=document.createElement('div');starter.className='application-starter';
+    starter.innerHTML=`<span class="application-tool-icon">${icon('document')}</span><p class="eyebrow">Ihr erster Schritt</p><h2>Der Anfang?<br>Ein kurzer Antrag.</h2><p>Nutzen Sie die Vorlage für Ihre Pflegeversicherung.</p><a class="button primary" href="#application-card">Musterantrag öffnen ${icon('arrow')}</a>`;
+    if(application){application.id='application-card';application.className='application-template-panel';application.querySelector('summary').innerHTML='<span>Vorlage ansehen</span>';const download=document.createElement('button');download.className='button secondary';download.dataset.action='download-application';download.innerHTML=`${icon('download')} Als Textdatei herunterladen`;application.querySelector('[data-action="copy-application"]').after(download);starter.append(application);}
+    side.append(starter);
+    const next=document.createElement('a');next.className='application-benefits';next.href='#/leistungen';next.innerHTML=`<span class="application-tool-icon">${icon('wallet')}</span><span><strong>Welche Hilfe steht mir zu?</strong><span>Leistungen und Budgets ansehen</span></span>${icon('arrow')}`;side.append(next);
+    layout.append(primary,side,extras);
+    const tools=document.createElement('div');tools.className='guide-quick-action';tools.innerHTML=`<p>Vom ersten Antrag bis zum Bescheid.</p><a class="text-link" href="#guide-apply">Mit Schritt 1 beginnen ${icon('arrow')}</a>`;header.append(tools);
     root.querySelector('.content-grid').replaceWith(layout);
   }else if(route==='/faq'){
     header.querySelector('h1').textContent='Ihre Fragen. Klar beantwortet.';
