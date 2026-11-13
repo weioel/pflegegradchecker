@@ -90,7 +90,7 @@ test('Redesign: care-grade selector and FAQ topics expose all content without ch
 test('Redesign: each guide deep link opens its step; the application template stays copyable',async()=>{
   const dom=await setup();
   for(const id of ['guide-check','guide-apply','guide-prepare','guide-decision','guide-objection','application-card']){
-    await navigate(id);assert.equal(document.getElementById(id).open,true,id);assert.ok(document.querySelector('.step-timeline'));assert.match(document.title,/Pflegegrad beantragen/);
+    await navigate(id);assert.equal(document.getElementById(id).open,true,id);assert.equal(document.querySelectorAll('.application-main .guide-steps > details').length,3);assert.match(document.title,/Pflegegrad beantragen/);
   }
   const textarea=document.querySelector('#application-template');assert.ok(textarea.readOnly);assert.match(textarea.value,/hiermit beantrage ich Leistungen/);assert.ok(document.querySelector('[data-action="copy-application"]'));
   dom.window.close();
