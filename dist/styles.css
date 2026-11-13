@@ -93,10 +93,23 @@ details{border-bottom:1px solid var(--line)}summary{cursor:pointer;list-style:no
 @media(max-width:760px){.iges-data{padding:24px 12px 18px}.iges-chart-header{padding:0 8px;margin-bottom:28px}.iges-chart-header h3{font-size:1.15rem}.iges-chart-header>p{font-size:.94rem;line-height:1.6}.iges-plot{min-width:680px;padding-left:64px}.iges-y-axis{width:54px;height:300px}.iges-chart{background-size:100% 301px;background-image:repeating-linear-gradient(to top,transparent 0,transparent 74px,#e2e6e8 74px,#e2e6e8 75px)}.iges-bar-pair{height:300px}.iges-data>.iges-legend{gap:12px 22px;flex-wrap:wrap;font-size:.875rem;margin:20px 0 12px}.iges-scale{font-size:.82rem;margin:12px 8px 20px}.iges-row-title{font-size:1rem}.iges-row-title strong{font-size:1rem}.iges-detail{padding:20px 16px}}
 @media(prefers-reduced-motion:reduce){.iges-bar{transition:none}}
 /* Quiet segmented module navigation, matching the existing care-setting controls. */
-.conversion-module-picker{margin:24px 0}.conversion-module-picker>p{font-size:.875rem;color:#626262;margin:0 0 10px}.conversion-module-switch{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;background:#f0f1f2;padding:5px;border-radius:15px}.conversion-module-switch>button{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:64px;padding:12px 10px;border:0;border-radius:10px;background:transparent;color:#545b60;text-align:center;transition:background .18s,color .18s,box-shadow .18s}.conversion-module-name{font-size:.875rem;line-height:1.4;font-weight:500;text-wrap:balance}.conversion-module-switch>button:hover{background:#ffffffb8;color:#111}.conversion-module-switch>button[aria-pressed="true"]{background:var(--ice);color:#111;box-shadow:0 1px 4px #163a4910}.conversion-module-switch>button[aria-pressed="true"]::after{content:"";position:absolute;width:22px;height:2px;background:#007da7;bottom:5px;left:calc(50% - 11px);border-radius:2px}.conversion-module-switch>button:focus-visible{outline:3px solid var(--focus);outline-offset:1px;z-index:1}
-@media(min-width:761px) and (max-width:960px){.conversion-module-switch{grid-template-columns:repeat(3,minmax(0,1fr))}.conversion-module-switch>button{min-height:54px}}
-@media(max-width:760px){.conversion-module-picker{margin:20px 0}.conversion-module-switch{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:5px;border-radius:14px}.conversion-module-switch>button{min-height:56px;padding:12px 10px;border-radius:9px}.conversion-module-name{font-size:.94rem;line-height:1.4}.conversion-module-picker>p{font-size:.875rem;margin-bottom:10px}}
+/* Module choices: individual, touch-friendly controls with a clear selected state. */
+.conversion-module-picker{margin:26px 0 28px}
+.conversion-module-picker>p{font-size:.94rem;color:#555;margin:0 0 12px}
+.conversion-module-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.conversion-module-switch>button{display:flex;align-items:center;gap:12px;min-width:0;min-height:62px;padding:15px 18px;border:1px solid #e5e5e5;border-radius:14px;background:#fff;color:#444;text-align:left;transition:background .18s,border-color .18s}
+.conversion-module-name{font-size:1rem;line-height:1.4;font-weight:500}
+.conversion-choice-mark{width:20px;height:20px;border:1px solid #bbb;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:#fff}
+.conversion-choice-mark .icon{width:14px;height:14px;visibility:hidden;stroke-width:2.2}
+.conversion-module-switch>button:hover{background:#fafafa;border-color:#aebbc0}
+.conversion-module-switch>button[aria-pressed="true"]{background:var(--ice);border-color:#0089b5;color:#111}
+.conversion-module-switch>button[aria-pressed="true"] .conversion-choice-mark{background:#007da7;border-color:#007da7;color:white}
+.conversion-module-switch>button[aria-pressed="true"] .conversion-choice-mark .icon{visibility:visible}
+.conversion-module-switch>button:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+@media(max-width:760px){.conversion-module-picker{margin:20px 0 24px}.conversion-module-switch{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.conversion-module-switch>button{padding:12px 10px;gap:8px;min-height:70px;border-radius:12px}.conversion-module-name{font-size:.875rem;line-height:1.4;hyphens:auto;overflow-wrap:anywhere}.conversion-choice-mark{width:17px;height:17px}.conversion-choice-mark .icon{width:12px;height:12px}}
+@media(max-width:360px){.conversion-module-switch{grid-template-columns:1fr}.conversion-module-switch>button{min-height:48px;padding:12px 14px}.conversion-module-name{font-size:.94rem}}
 @media(prefers-reduced-motion:reduce){.conversion-module-switch>button{transition:none}}
+
 
 /* Application guide: clear steps and a practical document companion. */
 .application-header{margin-bottom:36px}

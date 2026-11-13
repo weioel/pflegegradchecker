@@ -176,7 +176,7 @@ test('Reform comparison: range, typed input, validation, rule emphasis and every
   click('[data-weight-module="2"]');assert.match(document.querySelector('#weight-detail').textContent,/höhere gewichtete Wert/);assert.equal(document.querySelector('[data-weight-group="23"]').getAttribute('aria-pressed'),'true');
   click('[data-weight-module="3"]');assert.equal(document.querySelectorAll('.weight-stack [aria-pressed="true"]').length,1);assert.match(document.querySelector('#weight-detail').textContent,/Verhaltensweisen/);
   click('[data-weight-group="4"]');assert.equal(document.querySelector('[data-weight-module="4"]').getAttribute('aria-pressed'),'true');assert.match(document.querySelector('.weight-big').textContent,/40/);
-  click('[data-reform-jump="reform-module"]');assert.equal(document.activeElement.id,'module-heading');assert.equal(location.hash,'#/reform');dom.window.close();
+  assert.equal(document.querySelector('.reform-section-nav'),null);assert.equal(location.hash,'#/reform');dom.window.close();
 });
 test('Reform sliders are isolated from existing answers and scoring; legacy reform information remains accessible',async()=>{
   const dom=await setup('/rechner');await start();choose('answer','3');await navigate('/reform');setValue('#reform-points','100');setValue('#reform-raw','54');await navigate('/rechner');assert.equal(document.querySelector('input[name="answer"]:checked').value,'3');
@@ -191,7 +191,7 @@ test('Reform narrative order, three point steps and IGES tap interaction preserv
   for(const [grade,before,model,percent] of [[0,'237.390','453.584','+91,1 %'],[1,'365.938','379.800','+3,8 %'],[2,'447.931','287.411','−35,8 %'],[3,'136.301','75.171','−44,8 %'],[4,'24.551','16.926','−31,1 %'],[5,'6.164','5.383','−12,7 %']]){
     const button=document.querySelector(`[data-iges-grade="${grade}"]`);button.focus();button.click();assert.equal(document.activeElement,button);assert.equal(document.querySelectorAll('.iges-row[aria-pressed="true"]').length,1);const detail=document.querySelector('#iges-detail');assert.ok(detail.textContent.includes(before));assert.ok(detail.textContent.includes(model));assert.ok(detail.textContent.includes(percent));
   }
-  click('[data-reform-jump="reform-auswirkungen"]');assert.equal(document.activeElement.id,'iges-heading');
+  assert.equal(document.querySelector('[data-reform-jump]'),null);
   await navigate('/ratgeber');await navigate('/reform');assert.equal(document.querySelector('[data-iges-grade="5"]').getAttribute('aria-pressed'),'true');
   assert.ok(document.querySelector('#reform-points'));assert.ok(document.querySelector('#reform-raw'));assert.equal(document.querySelectorAll('[data-weight-module]').length,6);dom.window.close();
 });
